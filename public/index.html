@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>sheet-api — CSV to read-only REST API</title>
+    <meta
+      name="description"
+      content="Upload a CSV and get a read-only JSON REST API over its rows, with an API key."
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="bar">
+      <span class="brand">sheet-api</span>
+      <span class="tag">upload a CSV, get a read-only REST JSON API</span>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <h1>Upload a CSV. Get a JSON API for it.</h1>
+        <p>
+          Pick a CSV file (first row = column names). Column types (text/number/boolean) are
+          detected automatically. You'll get an API key and a URL you can
+          <code>GET</code> with pagination, sorting and exact-match filtering &mdash; no account
+          required for the free tier.
+        </p>
+      </section>
+
+      <section class="builder" aria-labelledby="builder-h">
+        <h2 id="builder-h">Create a project</h2>
+        <form id="create-form">
+          <label for="pname">Project name (optional)</label>
+          <input id="pname" name="pname" type="text" maxlength="80" placeholder="customers" />
+
+          <label for="file">CSV file</label>
+          <input id="file" name="file" type="file" accept=".csv,text/csv" required />
+
+          <button type="submit" id="create-btn">Upload &amp; create API</button>
+        </form>
+        <div id="result" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="docs">
+        <h2>Endpoints</h2>
+        <ul>
+          <li><code>GET /data/:id/columns</code> — column names and inferred types</li>
+          <li>
+            <code
+              >GET
+              /data/:id/rows?limit=&amp;offset=&amp;sort=&amp;order=&amp;&lt;col&gt;=value</code
+            >
+            — paginated, sortable, filterable list
+          </li>
+          <li><code>GET /data/:id/rows/:rowId</code> — a single row</li>
+        </ul>
+        <h2>Limits (free plan)</h2>
+        <ul>
+          <li>3 live projects, 1MB CSV, 5,000 rows, 50 columns</li>
+          <li>120 requests/min per project</li>
+          <li>projects expire after 30 days</li>
+        </ul>
+      </section>
+    </main>
+    <script src="/home.js"></script>
+  </body>
+</html>
